@@ -142,13 +142,14 @@ header .menu ion-icon {
 
   .app__videos {
     position: relative;
-    height: 750px;
+    width: 90%;
+    max-width: 400px;
+    height: 600px;;
     background-color: white;
     overflow: scroll;
-    width: 100%;
-    max-width: 400px;
     scroll-snap-type: y mandatory;
-    border-radius: 20px;
+    border-radius: 13px;
+    margin-top: 87px;
   }
   
   .app__videos::-webkit-scrollbar {
@@ -177,11 +178,18 @@ header .menu ion-icon {
   
   @media (max-width: 425px) {
     .app__videos {
+      position: absolute;
+      top: 0;
+      left: 50%; /* Centraliza horizontalmente */
+      transform: translateX(-50%); /* Compensa a largura do elemento para centralizar */
       width: 100%;
-      height: 100%;
-      max-width: 100%;
+      max-width: 400px; /* Largura máxima */
+      height: calc(100% - 90px); /* Calcula a altura total menos o footer-nav */
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 0;
-    }
+      z-index: 1;
+      margin-top: 0;
+  }
   }
 
   .controls {
