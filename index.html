@@ -1,113 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TikTok Clone</title>
-    <link rel="stylesheet" href="style.css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  </head>
-  <body>
-    <div class="app__videos">
-      <!-- video starts -->
-      <div class="video">
-        <video class="video__player" src="video1.mp4"></video>
 
-        <!-- sidebar -->
-        <div class="videoSidebar">
-          <div class="videoSidebar__button">
-            <span class="material-icons"> favorite_border </span>
-            <p>12</p>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="https://kit.fontawesome.com/cd363fe7f3.js" crossorigin="anonymous"></script>
+  <title>TikTok Clone</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script>
+</head>
 
-          <div class="videoSidebar__button">
-            <span class="material-icons"> message </span>
-            <p>23</p>
-          </div>
-
-          <div class="videoSidebar__button">
-            <span class="material-icons"> share </span>
-            <p>75</p>
-          </div>
-        </div>
-
-        <!-- footer -->
-        <div class="videoFooter">
-          <div class="videoFooter__text">
-            <h3>Harinivas P</h3>
-            <p class="videoFooter__description">Best Video Ever</p>
-
-            <div class="videoFooter__ticker">
-              <span class="material-icons videoFooter__icon"> music_note </span>
-              <marquee>Song name</marquee>
-            </div>
-          </div>
-          <img
-            src="https://static.thenounproject.com/png/934821-200.png"
-            alt=""
-            class="videoFooter__record"
-          />
-        </div>
-      </div>
-      <!-- video ends -->
-
-      <!-- video starts -->
-      <div class="video">
-        <video class="video__player" src="video2.mp4"></video>
-
-        <!-- sidebar -->
-        <div class="videoSidebar">
-          <div class="videoSidebar__button">
-            <span class="material-icons"> favorite_border </span>
-            <p>12</p>
-          </div>
-
-          <div class="videoSidebar__button">
-            <span class="material-icons"> message </span>
-            <p>23</p>
-          </div>
-
-          <div class="videoSidebar__button">
-            <span class="material-icons"> share </span>
-            <p>75</p>
-          </div>
-        </div>
-
-        <!-- footer -->
-        <div class="videoFooter">
-          <div class="videoFooter__text">
-            <h3>Harinivas P</h3>
-            <p class="videoFooter__description">Best Video Ever</p>
-
-            <div class="videoFooter__ticker">
-              <span class="material-icons videoFooter__icon"> music_note </span>
-              <marquee>Song name</marquee>
-            </div>
-          </div>
-          <img
-            src="https://static.thenounproject.com/png/934821-200.png"
-            alt=""
-            class="videoFooter__record"
-          />
-        </div>
-      </div>
-      <!-- video ends -->
+<body>
+  <header>
+    <div class="logo">CandyPacks</div>
+    <div class="menu">
+      <ion-icon name="home"></ion-icon>
+      <ion-icon name="search-outline"></ion-icon>
+      <ion-icon name="add-circle-outline"></ion-icon>
+      <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+      <ion-icon name="person-outline"></ion-icon>
     </div>
+  </header>
+  <div class="video-header">
+    <div class="tab active">Para Você</div>
+    <div class="tab">Seguindo</div>
+  </div>
+  <div class="app__videos">
+    <!-- video starts -->
+    <div class="video">
+      <video class="video__player" src="modelo3.MP4"></video>
 
-    <script>
-      const videos = document.querySelectorAll('video');
+      <div class="controls">
+        <div class="profile-icon">
+          <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Profile Image">
+        </div>
+        <ion-icon name="heart" id="heart-icon-video"></ion-icon>
+        <span class="likes-count" id="likes-video">113k</span>
+        <ion-icon name="chatbubble-ellipses" id="comment-icon"></ion-icon>
+        <span class="likes-count" id="likes-video">12k</span>
+        <ion-icon name="arrow-redo" id="share-icon"></ion-icon>
+        <span class="likes-count" id="likes-video">28k</span>
+      </div>
+      <div class="sidebar">
+        <h3>@CandyUser</h3>
+        <p>#CandyPacks #Viral #Trendy</p>
+      </div>
+    </div>
+    <!-- video ends -->
 
-      for (const video of videos) {
-        video.addEventListener('click', function () {
-          console.log('clicked');
-          if (video.paused) {
-            video.play();
-          } else {
-            video.pause();
-          }
-        });
-      }
-    </script>
-  </body>
+    <!-- video starts -->
+    <div class="video">
+      <video class="video__player" src="modelo1.mp4"></video>
+
+      <div class="controls">
+        <div class="profile-icon">
+          <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Profile Image">
+        </div>
+        <ion-icon name="heart" id="heart-icon-video"></ion-icon>
+        <span class="likes-count" id="likes-video">113k</span>
+        <ion-icon name="chatbubble-ellipses" id="comment-icon"></ion-icon>
+        <span class="likes-count" id="likes-video">12k</span>
+        <ion-icon name="arrow-redo" id="share-icon"></ion-icon>
+        <span class="likes-count" id="likes-video">28k</span>
+      </div>
+      <div class="sidebar">
+        <h3>@CandyUser</h3>
+        <p>#CandyPacks #Viral #Trendy</p>
+      </div>
+    </div>
+    <!-- video ends -->
+  </div>
+  <div class="footer-nav">
+    <ion-icon name="home"></ion-icon>
+    <ion-icon name="search-outline"></ion-icon>
+    <ion-icon name="add-circle-outline"></ion-icon>
+    <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+    <ion-icon name="person-outline"></ion-icon>
+  </div>
+
+  <script>
+    const videos = document.querySelectorAll('video');
+
+    for (const video of videos) {
+      video.addEventListener('click', function () {
+        console.log('clicked');
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
+    }
+  </script>
+</body>
+
 </html>
