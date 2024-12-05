@@ -189,6 +189,7 @@ header .menu ion-icon {
       border-radius: 0;
       z-index: 1;
       margin-top: 0;
+      margin-bottom: 0;
   }
   }
 
