@@ -66,13 +66,13 @@ header .menu ion-icon {
     align-items: center;
     background-color: #000000; /* Preto elegante */
     width: 100%;
-    height: 90px; /* Altura do footer */
+    height: 90px; /* Altura menor para se alinhar com o estilo minimalista */
     position: fixed;
     bottom: 0;
     z-index: 1000;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* Sombra para realce */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3); /* Sombra mais discreta */
     border-top: 1px solid rgba(255, 255, 255, 0.1); /* Linha discreta no topo */
-    padding: 0 20px; /* Espaçamento horizontal */
+    padding: 0 15px; /* Menos espaçamento para mais compactação */
   }
   
   .nav-item {
@@ -84,19 +84,28 @@ header .menu ion-icon {
     font-size: 11px;
     margin-bottom: 18px;
     transition: color 0.3s ease; /* Animação para hover */
+    padding: 0 9px;
   }
   
   .nav-item ion-icon {
-    font-size: 27px; /* Tamanho padrão dos ícones */
-    margin-bottom: 6px; /* Espaçamento entre ícone e texto */
-    transition: transform 0.3s ease, color 0.3s ease; /* Animação no hover */
+    font-size: 22px; /* Tamanho de ícone menor */
+    margin-bottom: 4px; /* Menor espaço entre o ícone e o texto */
+    transition: transform 0.3s ease, color 0.3s ease;
   }
   
   .nav-item:nth-child(3) ion-icon {
-    font-size: 50px; /* Tamanho maior do botão central */
+    font-size: 47px; /* Tamanho do ícone central ajustado para um visual mais clean */
     color: #fff;
   }
-    
+  
+  .nav-item:hover {
+    color: #fff; /* Destaque no hover */
+  }
+  
+  .nav-item:nth-child(3):hover ion-icon {
+    background-color: rgba(255, 255, 255, 0.1); /* Fundo no hover do botão central */
+  }
+      
     
   header .menu,
   .logo {
