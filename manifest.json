@@ -1,0 +1,25 @@
+{
+  "name": "CandyPacks",
+  "short_name": "CandyPacks",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0b0c",
+  "theme_color": "#0b0b0c",
+  "icons": [
+    {
+      "src": "/img/logo-192size.jpg",
+      "type": "image/jpg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/img/logo-1024size.jpg",
+      "type": "image/jpg",
+      "sizes": "1024x1024"
+    },
+    {
+      "src": "/img/logo-512size.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
