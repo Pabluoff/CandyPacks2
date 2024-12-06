@@ -171,10 +171,10 @@ header .menu ion-icon {
   max-width: 400px;
   height: 600px; /* Mantém a altura fixa para a versão desktop */
   background-color: rgb(0, 0, 0);
-  overflow-y: auto; /* Permite a rolagem apenas vertical */
+  overflow: auto; /* Permite a rolagem quando necessário */
   scroll-snap-type: y mandatory;
   border-radius: 13px;
-  margin-top: 87px; /* Espaço no topo */
+  margin-top: 87px; /* Mantém o espaço no topo */
 }
 
 .app__videos::-webkit-scrollbar {
@@ -208,13 +208,13 @@ header .menu ion-icon {
     transform: translateX(-50%); /* Compensa a largura do elemento para centralizar */
     width: 100%;
     max-width: 400px;
-    height: calc(100vh - 90px); /* Ajusta a altura para 100% da tela menos o footer */
+    height: calc(100vh - 90px); /* Usa 100vh para altura da tela, subtraindo a altura do footer */
     background: rgba(255, 255, 255, 0.1);
     border-radius: 0;
     z-index: 1;
     margin-top: 0;
     margin-bottom: 0;
-    overflow-y: auto; /* Permite rolagem vertical apenas */
+    overflow: auto; /* Permite rolagem sem esconder conteúdo */
   }
 }
 
