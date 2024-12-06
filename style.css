@@ -87,30 +87,16 @@ header .menu ion-icon {
   }
   
   .nav-item ion-icon {
-    font-size: 24px; /* Tamanho padrão dos ícones */
+    font-size: 27px; /* Tamanho padrão dos ícones */
     margin-bottom: 6px; /* Espaçamento entre ícone e texto */
     transition: transform 0.3s ease, color 0.3s ease; /* Animação no hover */
   }
   
   .nav-item:nth-child(3) ion-icon {
-    font-size: 34px; /* Tamanho maior do botão central */
+    font-size: 50px; /* Tamanho maior do botão central */
     color: #fff;
-    border: 3px solid #fff; /* Borda destacada */
-    border-radius: 50%; /* Formato circular */
-    padding: 8px;
-    background-color: #000; /* Fundo para contraste */
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); /* Sombra leve */
-    transition: transform 0.3s ease, background-color 0.3s ease; /* Animação */
   }
-  
-  .nav-item:hover {
-    color: #fff; /* Destaque no hover */
-  }
-  
-  
-  .nav-item:nth-child(3):hover ion-icon {
-    background-color: rgba(255, 255, 255, 0.1); /* Fundo no hover do botão central */
-  }
+    
     
   header .menu,
   .logo {
