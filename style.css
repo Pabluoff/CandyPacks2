@@ -161,7 +161,7 @@ header .menu ion-icon {
     width: 90%;
     max-width: 400px;
     height: 600px;;
-    background-color: white;
+    background-color: rgb(0, 0, 0);
     overflow: scroll;
     scroll-snap-type: y mandatory;
     border-radius: 13px;
@@ -181,7 +181,7 @@ header .menu ion-icon {
     position: relative;
     height: 100%;
     width: 100%;
-    background-color: white;
+    background-color: rgb(0, 0, 0);
     scroll-snap-align: start;
   }
   
