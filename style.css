@@ -82,7 +82,7 @@ header .menu ion-icon {
     justify-content: center;
     color: rgba(255, 255, 255, 0.8); /* Cor de texto com opacidade */
     font-size: 11px;
-    margin-bottom: 18px;
+    margin-bottom: 19px;
     transition: color 0.3s ease; /* Animação para hover */
     padding: 0 9px;
   }
