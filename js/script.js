@@ -1,23 +1,29 @@
 const videoContainer = document.getElementById('video-container');
 const body = document.body;
-let lastTap = 0; // Inicializar lastTap
 
+let lastTap = 0; // Variável para armazenar o último toque
+
+// Função para marcar o "like"
 function markLike(icon) {
   icon.setAttribute('name', 'heart');
   icon.style.color = '#ff5454';
 }
 
+// Função para marcar o "deslike"
 function markDeslike(icon) {
-  icon.setAttribute('name', 'heart');
+  icon.setAttribute('name', 'heart'); // Alterando para 'heart-outline' para diferenciar visualmente
   icon.style.color = 'white';
 }
 
+// Função para aplicar o estado de like armazenado no localStorage
 function applyStoredLikeState() {
-  const videos = document.querySelectorAll('.video');
-  videos.forEach(video => {
-    const videoId = video.dataset.id;
+  const videoElements = document.querySelectorAll('.video');
+  
+  videoElements.forEach(video => {
     const heartIcon = video.querySelector('.heart-icon-video');
+    const videoId = video.dataset.id;
     const likedState = localStorage.getItem(`liked-${videoId}`);
+
     if (likedState === 'liked') {
       markLike(heartIcon);
     } else {
@@ -26,6 +32,7 @@ function applyStoredLikeState() {
   });
 }
 
+// Evento de clique no vídeo
 videoContainer.addEventListener('click', (event) => {
   const heartIcon = event.target.closest('.heart-icon-video');
   if (heartIcon) {
@@ -43,6 +50,7 @@ videoContainer.addEventListener('click', (event) => {
   }
 });
 
+// Função para criar a animação de coração
 function createHeartAnimation(x, y) {
   const heartAnimation = document.createElement('ion-icon');
   heartAnimation.classList.add('heart-animation');
@@ -56,12 +64,14 @@ function createHeartAnimation(x, y) {
   }, 1000);
 }
 
+// Evento para toque rápido no vídeo (detecta toques rápidos)
 videoContainer.addEventListener('touchstart', (event) => {
   const currentTime = new Date().getTime();
   const tapLength = currentTime - lastTap;
   const touchX = event.touches[0].clientX;
   const touchY = event.touches[0].clientY;
 
+  // Detecta toque rápido para animação e marcar como "like"
   if (tapLength < 300 && tapLength > 0) {
     createHeartAnimation(touchX, touchY);
     const videoElement = event.target.closest('.video');
@@ -76,9 +86,10 @@ videoContainer.addEventListener('touchstart', (event) => {
   lastTap = currentTime;
 });
 
+// Evento de duplo clique para curtir o vídeo
 videoContainer.addEventListener('dblclick', (event) => {
-  const touchX = event.touches ? event.touches[0].clientX : event.clientX; // Ajustar para toque
-  const touchY = event.touches ? event.touches[0].clientY : event.clientY;
+  const touchX = event.clientX;
+  const touchY = event.clientY;
   createHeartAnimation(touchX, touchY);
 
   const videoElement = event.target.closest('.video');
@@ -90,6 +101,7 @@ videoContainer.addEventListener('dblclick', (event) => {
   }
 });
 
+// Quando a página carrega, aplica o estado de like armazenado
 window.addEventListener('load', () => {
   applyStoredLikeState();
 });
