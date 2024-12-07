@@ -277,3 +277,29 @@ header .menu ion-icon {
     font-family: "Poppins", sans-serif;
     font-style: normal;
   }
+/* Animação do coração */
+.heart-animation {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: #ff5454;
+  animation: heartAnimation 1s ease-out forwards;
+  z-index: 99;
+}
+
+@keyframes heartAnimation {
+  0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+  }
+
+  50% {
+      transform: translate(-50%, -50%) scale(1.5);
+      opacity: 0.7;
+  }
+
+  100% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+  }
+}
