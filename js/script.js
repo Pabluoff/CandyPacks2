@@ -94,36 +94,3 @@ window.addEventListener('load', () => {
   applyStoredLikeState();
 });
 
-const refreshIndicator = document.getElementById('refresh-indicator');
-let isRefreshing = false; // Flag para evitar múltiplas atualizações
-
-// Função para exibir o indicador de refresh
-function showRefreshIndicator() {
-  refreshIndicator.style.top = '10px'; // Move o indicador para dentro da tela
-  refreshIndicator.style.opacity = '1';
-}
-
-// Função para ocultar o indicador de refresh
-function hideRefreshIndicator() {
-  refreshIndicator.style.top = '-50px'; // Move o indicador para fora da tela
-  refreshIndicator.style.opacity = '0';
-}
-
-// Função para realizar o refresh
-function refreshPage() {
-  if (isRefreshing) return; // Evita múltiplos refreshes
-  isRefreshing = true;
-
-  showRefreshIndicator(); // Exibe o indicador de atualização
-
-  setTimeout(() => {
-    location.reload(); // Recarrega a página após 1.5s
-  }, 1500);
-}
-
-// Detecta o scroll para ativar o refresh
-window.addEventListener('scroll', () => {
-  if (window.scrollY <= 0 && !isRefreshing) {
-    refreshPage();
-  }
-});

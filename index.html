@@ -35,10 +35,6 @@
      <div class="tab">Seguindo</div>
     <div class="tab active">Para Você</div>
   </div>
-  <div class="refresh-indicator" id="refresh-indicator">
-    <ion-icon name="refresh-outline"></ion-icon>
-    <p>Atualizando...</p>
-  </div>  
   <div class="app__videos" id="video-container">
     <!-- video starts -->
     <div class="video" data-id="video1">
@@ -108,6 +104,14 @@
   </div>
 
   <script src="js/script.js"></script>
+  <script>
+    window.addEventListener('load', () => {
+  document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+  document.body.style.minHeight = `calc(var(--vh, 1vh) * 100)`;
+  document.querySelector('header').style.top = '0'; // Garante a posição correta do header
+});
+
+  </script>
 </body>
 
 </html>
