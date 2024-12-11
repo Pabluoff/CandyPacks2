@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function handleTouchEnd() {
-    if (isDraggingToRefresh && currentTouchY - startTouchY > 30) {
+    if (isDraggingToRefresh && currentTouchY - startTouchY > 60) {
       // O refresh só é acionado se o movimento exceder 60px
       refreshContent();
     } else {
