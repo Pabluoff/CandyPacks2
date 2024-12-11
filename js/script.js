@@ -100,7 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let isRefreshing = false; // Evita múltiplos refreshes
   let lastTouchY = null; // Armazena a posição Y do último toque
-  const pullThreshold = 80; // Tamanho mínimo da puxada (em pixels) para ativar o refresh
+  let touchDeltaY = 0; // Armazena a distância de puxada
+  const pullThreshold = 20; // Tamanho mínimo da puxada (em pixels) para ativar o refresh
 
   // Cria o indicador de refresh
   const refreshIndicator = document.createElement("div");
@@ -144,19 +145,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentTouchY = touch.clientY;
 
     if (lastTouchY !== null) {
-      const deltaY = currentTouchY - lastTouchY;
-
-      if (deltaY > pullThreshold) {
-        // Simula o evento de scroll para cima, ativando o refresh
-        handleScroll({ deltaY: -1 });
-      }
+      touchDeltaY = currentTouchY - lastTouchY;
     }
 
     lastTouchY = currentTouchY;
   }
 
+  function handleTouchEnd() {
+    // Só realiza o refresh se a distância de puxada for maior que o threshold
+    if (touchDeltaY > pullThreshold) {
+      // Simula o evento de scroll para cima, ativando o refresh
+      handleScroll({ deltaY: -1 });
+    }
+
+    // Reseta a variável após o término do toque
+    resetTouch();
+  }
+
   function resetTouch() {
     lastTouchY = null;
+    touchDeltaY = 0;
   }
 
   // Detecta scroll (mouse)
@@ -167,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lastTouchY = event.touches[0].clientY;
   });
   videoContainer.addEventListener("touchmove", handleTouchMove);
-  videoContainer.addEventListener("touchend", resetTouch);
+  videoContainer.addEventListener("touchend", handleTouchEnd);
 });
 
 // Estilo do indicador no estilo TikTok
