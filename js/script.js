@@ -94,3 +94,62 @@ window.addEventListener('load', () => {
   applyStoredLikeState();
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const videoContainer = document.getElementById("video-container");
+  const videos = videoContainer.querySelectorAll(".video");
+
+  let isRefreshing = false; // Evita múltiplos refreshes
+  let lastTouchY = null; // Armazena a posição Y do último toque
+
+  function refreshContent() {
+    if (isRefreshing) return; // Previne refreshes simultâneos
+    isRefreshing = true;
+
+    // Exemplo de lógica de refresh
+    alert("Atualizando conteúdo...");
+
+    // Simula uma atualização (substitua com carregamento dinâmico, se necessário)
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
+  }
+
+  function handleScroll(event) {
+    const containerTop = videoContainer.scrollTop;
+
+    // Verifica se o contêiner já está no topo e o scroll é para cima (deltaY < 0)
+    if (containerTop === 0 && event.deltaY < 0) {
+      refreshContent();
+    }
+  }
+
+  function handleTouchMove(event) {
+    const touch = event.changedTouches[0];
+    const currentTouchY = touch.clientY;
+
+    if (lastTouchY !== null) {
+      const deltaY = currentTouchY - lastTouchY;
+
+      if (deltaY > 0) {
+        // Simula o evento de scroll para cima
+        handleScroll({ deltaY: -1 });
+      }
+    }
+
+    lastTouchY = currentTouchY;
+  }
+
+  function resetTouch() {
+    lastTouchY = null;
+  }
+
+  // Detecta scroll (mouse)
+  videoContainer.addEventListener("wheel", handleScroll);
+
+  // Detecta gestos de toque
+  videoContainer.addEventListener("touchstart", (event) => {
+    lastTouchY = event.touches[0].clientY;
+  });
+  videoContainer.addEventListener("touchmove", handleTouchMove);
+  videoContainer.addEventListener("touchend", resetTouch);
+});
