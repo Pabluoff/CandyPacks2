@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let isRefreshing = false; // Evita múltiplos refreshes
   let lastTouchY = null; // Armazena a posição Y do último toque
   let touchDeltaY = 0; // Armazena a distância de puxada
-  const pullThreshold = 20; // Tamanho mínimo da puxada (em pixels) para ativar o refresh
+  const pullThreshold = 10; // Tamanho mínimo da puxada (em pixels) para ativar o refresh
 
   // Cria o indicador de refresh
   const refreshIndicator = document.createElement("div");
