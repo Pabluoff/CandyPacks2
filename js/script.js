@@ -100,7 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const videoHeader = document.querySelector(".video-header");
 
   let isRefreshing = false; // Evita múltiplos refreshes
-  let lastTouchY = null; // Armazena a posição Y do último toque
+  let startTouchY = null; // Armazena a posição Y inicial do toque
+  let currentTouchY = null; // Armazena a posição Y atual do toque
   let isDraggingToRefresh = false; // Indica se está arrastando para atualizar
 
   // Cria o indicador de refresh
@@ -111,6 +112,16 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="spinner" style="display: none;"></div>
   `;
   document.body.appendChild(refreshIndicator);
+
+  function updateRefreshIndicatorPosition(deltaY) {
+    const maxOffset = 80; // Altura máxima que o indicador pode alcançar
+    const offset = Math.min(deltaY, maxOffset);
+    refreshIndicator.style.transform = `translateY(${offset}px)`;
+  }
+
+  function resetRefreshIndicator() {
+    refreshIndicator.style.transform = `translateY(0px)`;
+  }
 
   function showRefreshIndicator(isLoading = false) {
     const refreshText = refreshIndicator.querySelector(".refresh-text");
@@ -132,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function hideRefreshIndicator() {
     refreshIndicator.classList.remove("visible");
+    resetRefreshIndicator();
     if (videoHeader) {
       videoHeader.style.display = "flex";
     }
@@ -150,38 +162,39 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function handleTouchMove(event) {
-    const touch = event.changedTouches[0];
-    const currentTouchY = touch.clientY;
+    if (!startTouchY) return;
 
-    if (lastTouchY !== null) {
-      const deltaY = currentTouchY - lastTouchY;
+    const touch = event.touches[0];
+    currentTouchY = touch.clientY;
+    const deltaY = currentTouchY - startTouchY;
 
-      if (deltaY > 0 && videoContainer.scrollTop === 0) {
-        // Bloqueia o espaço vazio ao arrastar para cima
-        event.preventDefault();
-        // Arrastando para atualizar
-        isDraggingToRefresh = true;
-        showRefreshIndicator(false); // Exibe o texto "Arraste para atualizar"
-      }
+    if (deltaY > 0 && videoContainer.scrollTop === 0) {
+      event.preventDefault(); // Bloqueia o comportamento padrão
+      isDraggingToRefresh = true;
+      updateRefreshIndicatorPosition(deltaY); // Move o indicador
+      showRefreshIndicator(false); // Exibe o texto "Arraste para atualizar"
+    } else if (deltaY <= 0) {
+      isDraggingToRefresh = false; // Cancela o refresh se o movimento for para cima
+      hideRefreshIndicator();
     }
-
-    lastTouchY = currentTouchY;
   }
 
   function handleTouchEnd() {
-    if (isDraggingToRefresh && videoContainer.scrollTop === 0) {
+    if (isDraggingToRefresh && currentTouchY - startTouchY > 50) {
+      // O refresh só é acionado se o movimento exceder 50px
       refreshContent();
     } else {
       hideRefreshIndicator();
     }
 
     isDraggingToRefresh = false;
-    lastTouchY = null;
+    startTouchY = null;
+    currentTouchY = null;
   }
 
   // Detecta gestos de toque
   videoContainer.addEventListener("touchstart", (event) => {
-    lastTouchY = event.touches[0].clientY;
+    startTouchY = event.touches[0].clientY;
   });
   videoContainer.addEventListener("touchmove", handleTouchMove, { passive: false }); // Torna o evento não passivo para bloquear o comportamento padrão
   videoContainer.addEventListener("touchend", handleTouchEnd);
@@ -192,7 +205,7 @@ const style = document.createElement("style");
 style.textContent = `
   #refresh-indicator {
     position: fixed;
-    top: -60px;
+    top: -36px;
     left: 0;
     right: 0;
     height: 50px;
@@ -204,12 +217,7 @@ style.textContent = `
     font-family: Arial, sans-serif;
     font-size: 20px;
     z-index: 9999;
-    transition: top 0.3s ease;
-    margin-top: 25px;
-  }
-
-  #refresh-indicator.visible {
-    top: 0;
+    transition: transform 0.3s ease;
   }
 
   #refresh-indicator .refresh-text {
