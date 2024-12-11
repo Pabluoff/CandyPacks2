@@ -147,17 +147,23 @@ header .menu ion-icon {
   margin: 0 15px;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .video-header .tab.active {
   color: #ffffff;
-  border-bottom: 2px solid #ffffff;
 }
 
-.video-header .tab:hover {
-  color: #ffffff7e;
-  border-color: #ffffff7e;
+.video-header .tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px; /* Distância entre o texto e a linha */
+  left: 30%; /* Início da linha (ajuste para centralizar) */
+  width: 40%; /* Largura da linha (diminua conforme necessário) */
+  height: 2px; /* Espessura da linha */
+  background-color: #ffffff;
 }
+
 
 @media screen and (min-width: 769px) {
   .video-header {
@@ -169,7 +175,7 @@ header .menu ion-icon {
   }
 
   .app__videos {
-    margin-top: 30px; /* Ajuste a distância conforme necessário */
+    margin-top: 120px; /* Ajuste a distância conforme necessário */
   }
   
 }
