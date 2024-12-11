@@ -112,21 +112,12 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
   document.body.appendChild(refreshIndicator);
 
-  const spinner = refreshIndicator.querySelector(".spinner");
-  spinner.style.display = "none"; // Oculta o spinner inicialmente
-
   function showRefreshIndicator(text) {
     refreshIndicator.querySelector(".refresh-text").textContent = text;
     refreshIndicator.classList.add("visible");
-    spinner.style.display = "none"; // Mostra apenas o texto inicialmente
     if (videoHeader) {
       videoHeader.style.display = "none";
     }
-  }
-
-  function showSpinner() {
-    refreshIndicator.querySelector(".refresh-text").textContent = "";
-    spinner.style.display = "block"; // Exibe o spinner
   }
 
   function hideRefreshIndicator() {
@@ -140,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isRefreshing) return; // Previne refreshes simultâneos
     isRefreshing = true;
 
-    showSpinner();
+    showRefreshIndicator("Carregando...");
 
     // Simula uma atualização (substitua com carregamento dinâmico, se necessário)
     setTimeout(() => {
@@ -156,6 +147,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const deltaY = currentTouchY - lastTouchY;
 
       if (deltaY > 0 && videoContainer.scrollTop === 0) {
+        // Bloqueia o espaço vazio ao arrastar para cima
+        event.preventDefault();
         // Arrastando para atualizar
         isDraggingToRefresh = true;
         showRefreshIndicator("Arraste para atualizar");
@@ -180,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
   videoContainer.addEventListener("touchstart", (event) => {
     lastTouchY = event.touches[0].clientY;
   });
-  videoContainer.addEventListener("touchmove", handleTouchMove);
+  videoContainer.addEventListener("touchmove", handleTouchMove, { passive: false }); // Torna o evento não passivo para bloquear o comportamento padrão
   videoContainer.addEventListener("touchend", handleTouchEnd);
 });
 
@@ -192,17 +185,16 @@ style.textContent = `
     top: -60px;
     left: 0;
     right: 0;
-    height: 50px;
+    height: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
     font-family: Arial, sans-serif;
-    font-size: 18px;
+    font-size: 19px;
     z-index: 9999;
     transition: top 0.3s ease;
-    margin-top: 25px;
   }
 
   #refresh-indicator.visible {
@@ -211,7 +203,6 @@ style.textContent = `
 
   #refresh-indicator .refresh-text {
     margin-bottom: 5px;
-    font-weight: bold;
   }
 
   #refresh-indicator .spinner {
