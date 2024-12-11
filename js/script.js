@@ -96,6 +96,7 @@ window.addEventListener('load', () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const videoContainer = document.getElementById("video-container");
+  const videoHeader = document.getElementById("video-header"); // Referência ao cabeçalho
   const videos = videoContainer.querySelectorAll(".video");
 
   let isRefreshing = false; // Evita múltiplos refreshes
@@ -103,16 +104,25 @@ document.addEventListener("DOMContentLoaded", () => {
   let touchDeltaY = 0; // Armazena a distância de puxada
   const pullThreshold = 10; // Tamanho mínimo da puxada (em pixels) para ativar o refresh
 
-  // Cria o indicador de refresh 
+  // Cria o indicador de refresh
   const refreshIndicator = document.createElement("div");
   refreshIndicator.id = "refresh-indicator";
   refreshIndicator.innerHTML = `
-    <div class="spinner"></div>
+    <span id="drag-text">Arraste para atualizar</span>
+    <div class="spinner" id="loading-spinner" style="display: none;"></div>
   `;
   document.body.appendChild(refreshIndicator);
 
-  function showRefreshIndicator() {
-    refreshIndicator.classList.add("visible");
+  // Função para exibir o texto "Arraste para atualizar"
+  function showDragText() {
+    document.getElementById("drag-text").style.display = "block";
+    document.getElementById("loading-spinner").style.display = "none";
+  }
+
+  // Função para exibir o spinner de loading
+  function showLoadingIndicator() {
+    document.getElementById("drag-text").style.display = "none";
+    document.getElementById("loading-spinner").style.display = "block";
   }
 
   function hideRefreshIndicator() {
@@ -123,7 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isRefreshing) return; // Previne refreshes simultâneos
     isRefreshing = true;
 
-    showRefreshIndicator();
+    showLoadingIndicator();
+    videoHeader.style.display = "none"; // Torna o cabeçalho invisível durante o refresh
 
     // Simula uma atualização (substitua com carregamento dinâmico, se necessário)
     setTimeout(() => {
@@ -149,6 +160,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     lastTouchY = currentTouchY;
+
+    // Exibe o texto enquanto arrasta
+    if (touchDeltaY > 0) {
+      showDragText();
+    }
   }
 
   function handleTouchEnd() {
@@ -156,6 +172,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (touchDeltaY > pullThreshold) {
       // Simula o evento de scroll para cima, ativando o refresh
       handleScroll({ deltaY: -1 });
+    } else {
+      // Reseta o toque se a distância mínima não for alcançada
+      resetTouch();
+      showDragText();
     }
 
     // Reseta a variável após o término do toque
@@ -204,6 +224,11 @@ style.textContent = `
     top: 0;
   }
 
+  #refresh-indicator #drag-text {
+    display: block;
+    margin-bottom: 5px;
+  }
+
   #refresh-indicator .spinner {
     width: 24px;
     height: 24px;
@@ -221,6 +246,15 @@ style.textContent = `
     to {
       transform: rotate(360deg);
     }
+  }
+  
+  #video-header {
+    transition: opacity 0.3s ease;
+  }
+
+  #video-header.hidden {
+    opacity: 0;
+    visibility: hidden;
   }
 `;
 document.head.appendChild(style);
