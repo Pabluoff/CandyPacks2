@@ -96,12 +96,11 @@ window.addEventListener('load', () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const videoContainer = document.getElementById("video-container");
-  const videos = videoContainer.querySelectorAll(".video");
   const videoHeader = document.querySelector(".video-header");
 
   let isRefreshing = false; // Evita múltiplos refreshes
-  let startTouchY = null; // Armazena a posição Y inicial do toque
-  let currentTouchY = null; // Armazena a posição Y atual do toque
+  let startTouchY = null; // Posição inicial do toque
+  let currentTouchY = null; // Posição atual do toque
   let isDraggingToRefresh = false; // Indica se está arrastando para atualizar
 
   // Cria o indicador de refresh
@@ -114,13 +113,17 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(refreshIndicator);
 
   function updateRefreshIndicatorPosition(deltaY) {
-    const maxOffset = 80; // Altura máxima que o indicador pode alcançar
+    const maxOffset = 100; // Altura máxima que o indicador pode alcançar
     const offset = Math.min(deltaY, maxOffset);
     refreshIndicator.style.transform = `translateY(${offset}px)`;
   }
 
   function resetRefreshIndicator() {
-    refreshIndicator.style.transform = `translateY(0px)`;
+    refreshIndicator.style.transition = "transform 0.3s ease";
+    refreshIndicator.style.transform = "translateY(0px)";
+    setTimeout(() => {
+      refreshIndicator.style.transition = ""; // Remove a transição para o próximo movimento
+    }, 300);
   }
 
   function showRefreshIndicator(isLoading = false) {
@@ -180,8 +183,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function handleTouchEnd() {
-    if (isDraggingToRefresh && currentTouchY - startTouchY > 50) {
-      // O refresh só é acionado se o movimento exceder 50px
+    if (isDraggingToRefresh && currentTouchY - startTouchY > 30) {
+      // O refresh só é acionado se o movimento exceder 60px
       refreshContent();
     } else {
       hideRefreshIndicator();
@@ -205,7 +208,7 @@ const style = document.createElement("style");
 style.textContent = `
   #refresh-indicator {
     position: fixed;
-    top: -36px;
+    top: -60px;
     left: 0;
     right: 0;
     height: 50px;
@@ -217,7 +220,8 @@ style.textContent = `
     font-family: Arial, sans-serif;
     font-size: 20px;
     z-index: 9999;
-    transition: transform 0.3s ease;
+    transform: translateY(0);
+    transition: transform 0.2s ease-out;
   }
 
   #refresh-indicator .refresh-text {
