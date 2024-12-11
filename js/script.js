@@ -108,12 +108,22 @@ document.addEventListener("DOMContentLoaded", () => {
   refreshIndicator.id = "refresh-indicator";
   refreshIndicator.innerHTML = `
     <span class="refresh-text">Arraste para atualizar</span>
-    <div class="spinner"></div>
+    <div class="spinner" style="display: none;"></div>
   `;
   document.body.appendChild(refreshIndicator);
 
-  function showRefreshIndicator(text) {
-    refreshIndicator.querySelector(".refresh-text").textContent = text;
+  function showRefreshIndicator(isLoading = false) {
+    const refreshText = refreshIndicator.querySelector(".refresh-text");
+    const spinner = refreshIndicator.querySelector(".spinner");
+
+    if (isLoading) {
+      refreshText.style.display = "none";
+      spinner.style.display = "block";
+    } else {
+      refreshText.style.display = "block";
+      spinner.style.display = "none";
+    }
+
     refreshIndicator.classList.add("visible");
     if (videoHeader) {
       videoHeader.style.display = "none";
@@ -131,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isRefreshing) return; // Previne refreshes simultâneos
     isRefreshing = true;
 
-    showRefreshIndicator("Carregando...");
+    showRefreshIndicator(true); // Exibe apenas o spinner
 
     // Simula uma atualização (substitua com carregamento dinâmico, se necessário)
     setTimeout(() => {
@@ -151,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         // Arrastando para atualizar
         isDraggingToRefresh = true;
-        showRefreshIndicator("Arraste para atualizar");
+        showRefreshIndicator(false); // Exibe o texto "Arraste para atualizar"
       }
     }
 
@@ -185,16 +195,17 @@ style.textContent = `
     top: -60px;
     left: 0;
     right: 0;
-    height: 60px;
+    height: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
     font-family: Arial, sans-serif;
-    font-size: 19px;
+    font-size: 20px;
     z-index: 9999;
     transition: top 0.3s ease;
+    margin-top: 25px;
   }
 
   #refresh-indicator.visible {
