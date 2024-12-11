@@ -229,8 +229,8 @@ style.textContent = `
   }
 
   #refresh-indicator .spinner {
-    width: 24px;
-    height: 24px;
+    width: 34px;
+    height: 34px;
     border: 3px solid rgba(255, 255, 255, 0.6);
     border-top: 3px solid white;
     border-radius: 50%;
