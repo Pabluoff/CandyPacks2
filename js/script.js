@@ -101,12 +101,27 @@ document.addEventListener("DOMContentLoaded", () => {
   let isRefreshing = false; // Evita múltiplos refreshes
   let lastTouchY = null; // Armazena a posição Y do último toque
 
+  // Cria o indicador de refresh
+  const refreshIndicator = document.createElement("div");
+  refreshIndicator.id = "refresh-indicator";
+  refreshIndicator.innerHTML = `
+    <div class="spinner"></div>
+  `;
+  document.body.appendChild(refreshIndicator);
+
+  function showRefreshIndicator() {
+    refreshIndicator.classList.add("visible");
+  }
+
+  function hideRefreshIndicator() {
+    refreshIndicator.classList.remove("visible");
+  }
+
   function refreshContent() {
     if (isRefreshing) return; // Previne refreshes simultâneos
     isRefreshing = true;
 
-    // Exemplo de lógica de refresh
-    alert("Atualizando conteúdo...");
+    showRefreshIndicator();
 
     // Simula uma atualização (substitua com carregamento dinâmico, se necessário)
     setTimeout(() => {
@@ -117,8 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleScroll(event) {
     const containerTop = videoContainer.scrollTop;
 
-    // Verifica se o contêiner já está no topo e o scroll é para cima (deltaY < 0)
-    if (containerTop === 0 && event.deltaY < 0) {
+    // Verifica se o contêiner está no topo e houve tentativa de rolagem para cima
+    if (containerTop <= 0 && event.deltaY < 0) {
       refreshContent();
     }
   }
@@ -153,3 +168,50 @@ document.addEventListener("DOMContentLoaded", () => {
   videoContainer.addEventListener("touchmove", handleTouchMove);
   videoContainer.addEventListener("touchend", resetTouch);
 });
+
+// Estilo do indicador no estilo TikTok
+const style = document.createElement("style");
+style.textContent = `
+  #refresh-indicator {
+    position: fixed;
+    top: -100px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    transition: top 0.3s ease;
+  }
+
+  #refresh-indicator.visible {
+    top: 0;
+  }
+
+  #refresh-indicator .spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.6);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 5px;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+document.head.appendChild(style);
