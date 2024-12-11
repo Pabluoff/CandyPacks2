@@ -98,22 +98,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const videoContainer = document.getElementById("video-container");
   const videoHeader = document.querySelector(".video-header");
 
-  let isRefreshing = false; // Evita múltiplos refreshes
-  let startTouchY = null; // Posição inicial do toque
-  let currentTouchY = null; // Posição atual do toque
-  let isDraggingToRefresh = false; // Indica se está arrastando para atualizar
+  let isRefreshing = false;
+  let startTouchY = null;
+  let currentTouchY = null;
+  let isDraggingToRefresh = false;
 
   // Cria o indicador de refresh
   const refreshIndicator = document.createElement("div");
   refreshIndicator.id = "refresh-indicator";
   refreshIndicator.innerHTML = `
     <span class="refresh-text">Arraste para atualizar</span>
-    <div class="spinner" style="display: none;"></div>
   `;
   document.body.appendChild(refreshIndicator);
 
+  // Cria a linha de loading fixa no topo
+  const loadingLine = document.createElement("div");
+  loadingLine.id = "loading-line";
+  loadingLine.style.display = "none"; // Inicialmente oculta
+  document.body.appendChild(loadingLine);
+
   function updateRefreshIndicatorPosition(deltaY) {
-    const maxOffset = 100; // Altura máxima que o indicador pode alcançar
+    const maxOffset = 100;
     const offset = Math.min(deltaY, maxOffset);
     refreshIndicator.style.transform = `translateY(${offset}px)`;
   }
@@ -122,20 +127,19 @@ document.addEventListener("DOMContentLoaded", () => {
     refreshIndicator.style.transition = "transform 0.3s ease";
     refreshIndicator.style.transform = "translateY(0px)";
     setTimeout(() => {
-      refreshIndicator.style.transition = ""; // Remove a transição para o próximo movimento
+      refreshIndicator.style.transition = "";
     }, 300);
   }
 
   function showRefreshIndicator(isLoading = false) {
     const refreshText = refreshIndicator.querySelector(".refresh-text");
-    const spinner = refreshIndicator.querySelector(".spinner");
 
     if (isLoading) {
       refreshText.style.display = "none";
-      spinner.style.display = "block";
+      loadingLine.style.display = "block"; // Mostra a linha de loading
     } else {
       refreshText.style.display = "block";
-      spinner.style.display = "none";
+      loadingLine.style.display = "none"; // Esconde a linha de loading
     }
 
     refreshIndicator.classList.add("visible");
@@ -153,12 +157,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function refreshContent() {
-    if (isRefreshing) return; // Previne refreshes simultâneos
+    if (isRefreshing) return;
     isRefreshing = true;
 
-    showRefreshIndicator(true); // Exibe apenas o spinner
+    showRefreshIndicator(true);
 
-    // Simula uma atualização (substitua com carregamento dinâmico, se necessário)
+    // Simula uma atualização
     setTimeout(() => {
       location.reload();
     }, 1000);
@@ -172,19 +176,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const deltaY = currentTouchY - startTouchY;
 
     if (deltaY > 0 && videoContainer.scrollTop === 0) {
-      event.preventDefault(); // Bloqueia o comportamento padrão
+      event.preventDefault();
       isDraggingToRefresh = true;
-      updateRefreshIndicatorPosition(deltaY); // Move o indicador
-      showRefreshIndicator(false); // Exibe o texto "Arraste para atualizar"
+      updateRefreshIndicatorPosition(deltaY);
+      showRefreshIndicator(false);
     } else if (deltaY <= 0) {
-      isDraggingToRefresh = false; // Cancela o refresh se o movimento for para cima
+      isDraggingToRefresh = false;
       hideRefreshIndicator();
     }
   }
 
   function handleTouchEnd() {
     if (isDraggingToRefresh && currentTouchY - startTouchY > 60) {
-      // O refresh só é acionado se o movimento exceder 60px
       refreshContent();
     } else {
       hideRefreshIndicator();
@@ -195,20 +198,19 @@ document.addEventListener("DOMContentLoaded", () => {
     currentTouchY = null;
   }
 
-  // Detecta gestos de toque
   videoContainer.addEventListener("touchstart", (event) => {
     startTouchY = event.touches[0].clientY;
   });
-  videoContainer.addEventListener("touchmove", handleTouchMove, { passive: false }); // Torna o evento não passivo para bloquear o comportamento padrão
+  videoContainer.addEventListener("touchmove", handleTouchMove, { passive: false });
   videoContainer.addEventListener("touchend", handleTouchEnd);
 });
 
-// Estilo do indicador no estilo TikTok
+// Estilo do indicador e da linha de loading no topo
 const style = document.createElement("style");
 style.textContent = `
   #refresh-indicator {
     position: fixed;
-    top: -60px;
+    top: 0;
     left: 0;
     right: 0;
     height: 50px;
@@ -225,24 +227,40 @@ style.textContent = `
   }
 
   #refresh-indicator .refresh-text {
-    margin-bottom: 5px;
+    margin-bottom: 120px;
   }
 
-  #refresh-indicator .spinner {
-    width: 34px;
-    height: 34px;
-    border: 3px solid rgba(255, 255, 255, 0.6);
-    border-top: 3px solid white;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+  #loading-line {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #555;
+    z-index: 10000;
+    display: none;
   }
 
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
+  #loading-line::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 30%;
+    height: 100%;
+    background: #fff;
+    animation: loading 2s linear infinite;
+  }
+
+  @keyframes loading {
+    0% {
+      left: -100%;
     }
-    to {
-      transform: rotate(360deg);
+    50% {
+      left: 50%;
+    }
+    100% {
+      left: 100%;
     }
   }
 `;
