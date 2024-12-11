@@ -100,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let isRefreshing = false; // Evita múltiplos refreshes
   let lastTouchY = null; // Armazena a posição Y do último toque
+  const pullThreshold = 80; // Tamanho mínimo da puxada (em pixels) para ativar o refresh
 
   // Cria o indicador de refresh
   const refreshIndicator = document.createElement("div");
@@ -145,8 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (lastTouchY !== null) {
       const deltaY = currentTouchY - lastTouchY;
 
-      if (deltaY > 0) {
-        // Simula o evento de scroll para cima
+      if (deltaY > pullThreshold) {
+        // Simula o evento de scroll para cima, ativando o refresh
         handleScroll({ deltaY: -1 });
       }
     }
