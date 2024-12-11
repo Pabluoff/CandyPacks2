@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let touchDeltaY = 0; // Armazena a distância de puxada
   const pullThreshold = 10; // Tamanho mínimo da puxada (em pixels) para ativar o refresh
 
-  // Cria o indicador de refresh
+  // Cria o indicador de refresh 
   const refreshIndicator = document.createElement("div");
   refreshIndicator.id = "refresh-indicator";
   refreshIndicator.innerHTML = `
