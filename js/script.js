@@ -243,6 +243,7 @@ style.textContent = `
 
   #refresh-indicator .refresh-text {
     margin-bottom: 120px;
+    font-weight: bold;
   }
 
   #loading-line {
