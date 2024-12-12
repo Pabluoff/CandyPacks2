@@ -316,3 +316,32 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const videos = document.querySelectorAll(".video");
+  const previousIndex = localStorage.getItem("currentVideoIndex");
+  let currentIndex = previousIndex !== null ? parseInt(previousIndex) : 0;
+
+  // Função para alternar vídeos
+  function toggleVideoVisibility(index) {
+    videos.forEach((video, i) => {
+      const videoElement = video.querySelector("video");
+      const imgElement = video.querySelector("img");
+
+      if (i === index) {
+        videoElement.style.display = "block";
+        imgElement.style.display = "none";
+      } else {
+        videoElement.style.display = "none";
+        imgElement.style.display = "block";
+      }
+    });
+  }
+
+  // Alterna o vídeo atual
+  toggleVideoVisibility(currentIndex);
+
+  // Atualiza o índice no localStorage
+  currentIndex = (currentIndex + 1) % videos.length;
+  localStorage.setItem("currentVideoIndex", currentIndex);
+});
