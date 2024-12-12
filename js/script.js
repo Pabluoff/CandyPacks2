@@ -94,6 +94,7 @@ window.addEventListener('load', () => {
   applyStoredLikeState();
 });
 
+// Adiciona o listener para o carregamento do DOM
 document.addEventListener("DOMContentLoaded", () => {
   const videoContainer = document.getElementById("video-container");
   const videoHeader = document.querySelector(".video-header");
@@ -117,6 +118,17 @@ document.addEventListener("DOMContentLoaded", () => {
   loadingLine.style.display = "none"; // Inicialmente oculta
   document.body.appendChild(loadingLine);
 
+  // Cria o loading estilo Instagram
+  const instagramLoading = document.createElement("div");
+  instagramLoading.id = "instagram-loading";
+  instagramLoading.innerHTML = `
+    <div class="instagram-bar"></div>
+    <div class="instagram-bar"></div>
+    <div class="instagram-bar"></div>
+  `;
+  instagramLoading.style.display = "none"; // Inicialmente oculta
+  document.body.appendChild(instagramLoading);
+
   function updateRefreshIndicatorPosition(deltaY) {
     const maxOffset = 100;
     const offset = Math.min(deltaY, maxOffset);
@@ -137,9 +149,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isLoading) {
       refreshText.style.display = "none";
       loadingLine.style.display = "block"; // Mostra a linha de loading
+      instagramLoading.style.display = "flex"; // Mostra o loading do Instagram
     } else {
       refreshText.style.display = "block";
       loadingLine.style.display = "none"; // Esconde a linha de loading
+      instagramLoading.style.display = "none"; // Esconde o loading do Instagram
     }
 
     refreshIndicator.classList.add("visible");
@@ -154,6 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (videoHeader) {
       videoHeader.style.display = "flex";
     }
+    instagramLoading.style.display = "none"; // Esconde o loading do Instagram
   }
 
   function refreshContent() {
@@ -205,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
   videoContainer.addEventListener("touchend", handleTouchEnd);
 });
 
-// Estilo do indicador e da linha de loading no topo
+// Estilo do indicador, linha de loading no topo e Instagram loading
 const style = document.createElement("style");
 style.textContent = `
   #refresh-indicator {
@@ -236,7 +251,7 @@ style.textContent = `
     left: 0;
     right: 0;
     height: 4px;
-    background: #555;
+    background: ;
     z-index: 10000;
     display: none;
   }
@@ -252,6 +267,33 @@ style.textContent = `
     animation: loading 2s linear infinite;
   }
 
+  #instagram-loading {
+    position: fixed;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+    width: 80px;
+    z-index: 10000;
+  }
+
+  .instagram-bar {
+    width: 20px;
+    height: 20px;
+    background: #ccc;
+    border-radius: 50%;
+    animation: instagram-loading 1.5s infinite;
+  }
+
+  .instagram-bar:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .instagram-bar:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
   @keyframes loading {
     0% {
       left: -100%;
@@ -261,6 +303,15 @@ style.textContent = `
     }
     100% {
       left: 100%;
+    }
+  }
+
+  @keyframes instagram-loading {
+    0%, 80%, 100% {
+      transform: scale(0);
+    }
+    40% {
+      transform: scale(1);
     }
   }
 `;
