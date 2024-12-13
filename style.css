@@ -1,54 +1,64 @@
 * {
-    margin: 0;
-    box-sizing: border-box;
-  }
-  
-  html {
-    scroll-snap-type: y mandatory;
-    overflow: hidden;
-  }
-  
-  body {
-    color: white;
-    background-color: black;
-    margin: 0;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden; /* Evita scroll desnecessário */
-  }
-  
-  header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 1000;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+}
+
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+
+body {
+  color: white;
+  background-color: black;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  /* Evita scroll desnecessário */
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1000;
 }
 
 header .logo {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #ff69b4;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ff69b4;
 }
 
 header .menu {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 header .menu ion-icon {
-    font-size: 1.5rem;
-    cursor: pointer;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .footer-nav {
@@ -58,80 +68,93 @@ header .menu ion-icon {
 
 @media screen and (max-width: 768px) {
   body {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100vh; /* Garante que o body não ultrapasse a altura da tela */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* Garante que o body não ultrapasse a altura da tela */
   }
 
   .footer-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #000000; /* Preto elegante */
+    background-color: #000000;
+    /* Preto elegante */
     width: 100%;
-    height: 90px; /* Altura menor para se alinhar com o estilo minimalista */
+    height: 90px;
+    /* Altura menor para se alinhar com o estilo minimalista */
     position: fixed;
     bottom: 0;
     z-index: 1000;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3); /* Sombra mais discreta */
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Linha discreta no topo */
-    padding: 0 15px; /* Menos espaçamento para mais compactação */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+    /* Sombra mais discreta */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    /* Linha discreta no topo */
+    padding: 0 15px;
+    /* Menos espaçamento para mais compactação */
   }
-  
+
   .nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: rgba(255, 255, 255, 0.8); /* Cor de texto com opacidade */
+    color: rgba(255, 255, 255, 0.8);
+    /* Cor de texto com opacidade */
     font-size: 11px;
     margin-bottom: 30px;
-    transition: color 0.3s ease; /* Animação para hover */
+    transition: color 0.3s ease;
+    /* Animação para hover */
     padding: 0 9px;
   }
-  
+
   .nav-item ion-icon {
-    font-size: 22px; /* Tamanho de ícone menor */
-    margin-bottom: 4px; /* Menor espaço entre o ícone e o texto */
+    font-size: 22px;
+    /* Tamanho de ícone menor */
+    margin-bottom: 4px;
+    /* Menor espaço entre o ícone e o texto */
     transition: transform 0.3s ease, color 0.3s ease;
   }
-  
+
   .nav-item:nth-child(3) ion-icon {
-    font-size: 47px; /* Tamanho do ícone central ajustado para um visual mais clean */
+    font-size: 47px;
+    /* Tamanho do ícone central ajustado para um visual mais clean */
     color: #fff;
   }
-  
+
   .nav-item:hover {
-    color: #fff; /* Destaque no hover */
+    color: #fff;
+    /* Destaque no hover */
   }
-  
+
   .nav-item:nth-child(3):hover ion-icon {
-    background-color: rgba(255, 255, 255, 0.1); /* Fundo no hover do botão central */
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Fundo no hover do botão central */
   }
-      
-    
+
+
   header .menu,
   .logo {
-      display: none;
+    display: none;
   }
 
   header {
-      display: none;
+    display: none;
   }
 
 }
 
 @media screen and (min-width: 769px) {
   header .menu {
-      gap: 30px;
+    gap: 30px;
   }
 }
 
 .video-header {
   position: fixed;
-  top:  16px;
+  top: 16px;
   left: 0;
   width: 100%;
   display: flex;
@@ -158,27 +181,35 @@ header .menu ion-icon {
 .video-header .tab.active::after {
   content: '';
   position: absolute;
-  bottom: -5px; /* Distância entre o texto e a linha */
-  left: 30%; /* Início da linha (ajuste para centralizar) */
-  width: 40%; /* Largura da linha (diminua conforme necessário) */
-  height: 2px; /* Espessura da linha */
+  bottom: -5px;
+  /* Distância entre o texto e a linha */
+  left: 30%;
+  /* Início da linha (ajuste para centralizar) */
+  width: 40%;
+  /* Largura da linha (diminua conforme necessário) */
+  height: 2px;
+  /* Espessura da linha */
   background-color: #ffffff;
 }
 
 
 @media screen and (min-width: 769px) {
   .video-header {
-      position: fixed; /* Mantém fixo no desktop */
-      top: 50px; /* Coloca acima do vídeo */
-      z-index: 999; /* Abaixo do header principal */
-      background: #000;
-      
+    position: fixed;
+    /* Mantém fixo no desktop */
+    top: 50px;
+    /* Coloca acima do vídeo */
+    z-index: 999;
+    /* Abaixo do header principal */
+    background: #000;
+
   }
 
   .app__videos {
-    margin-top: 120px; /* Ajuste a distância conforme necessário */
+    margin-top: 120px;
+    /* Ajuste a distância conforme necessário */
   }
-  
+
 }
 
 .app__videos {
@@ -193,13 +224,15 @@ header .menu ion-icon {
 }
 
 .app__videos::-webkit-scrollbar {
-  display: none; /* Remove a barra de rolagem */
+  display: none;
+  /* Remove a barra de rolagem */
 }
 
 .video {
   position: relative;
   width: 100%;
-  height: 100%; /* Garante que o vídeo ocupe toda a área */
+  height: 100%;
+  /* Garante que o vídeo ocupe toda a área */
   background-color: rgb(0, 0, 0);
   scroll-snap-align: start;
   display: flex;
@@ -212,93 +245,98 @@ header .menu ion-icon {
   width: 100%;
   height: 100%;
 }
-  
-  .app__videos::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .app__videos {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  
-  
-  @media (max-width: 768px) {
-    .app__videos {
-      position: absolute;
-      top: 0;
-      left: 50%; /* Centraliza horizontalmente */
-      transform: translateX(-50%); /* Compensa a largura do elemento para centralizar */
-      width: 100%;
-      max-width: 400px; /* Largura máxima */
-      height: calc(100% - 90px); /* Calcula a altura total menos o footer-nav */
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 0;
-      z-index: 1;
-      margin-top: 0;
-      margin-bottom: 0;
-  }
-  }
 
-  .controls {
+.app__videos::-webkit-scrollbar {
+  display: none;
+}
+
+.app__videos {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
+@media (max-width: 768px) {
+  .app__videos {
     position: absolute;
-    bottom: 30px;
-    right: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    top: 0;
+    left: 50%;
+    /* Centraliza horizontalmente */
+    transform: translateX(-50%);
+    /* Compensa a largura do elemento para centralizar */
+    width: 100%;
+    max-width: 400px;
+    /* Largura máxima */
+    height: calc(100% - 90px);
+    /* Calcula a altura total menos o footer-nav */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    z-index: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.controls {
+  position: absolute;
+  bottom: 30px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .controls ion-icon {
-    font-size: 2.4rem;
-    color: #ffffff;
-    cursor: pointer;
-    transition: transform 0.2s;
+  font-size: 2.4rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
 .controls ion-icon:hover {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 /* Substituir o perfil por uma imagem */
 .profile-icon img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid #ff69b4;
-    box-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
-    transition: transform 0.2s;
-    margin-bottom: 7px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #ff69b4;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+  transition: transform 0.2s;
+  margin-bottom: 7px;
 }
 
 .sidebar {
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
-    color: #fff;
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  color: #fff;
 }
 
 .sidebar h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .sidebar p {
-    font-size: 0.9rem;
-    opacity: 0.8;
+  font-size: 0.9rem;
+  opacity: 0.8;
 }
 
 
 .likes-count {
-    font-size: 1rem;
-    color: #ffffff;
-    margin-top: -8px;
-    font-weight: 400;
-    text-align: center;
-    font-family: "Poppins", sans-serif;
-    font-style: normal;
-  }
+  font-size: 1rem;
+  color: #ffffff;
+  margin-top: -8px;
+  font-weight: 400;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+}
+
 /* Animação do coração */
 .heart-animation {
   position: absolute;
@@ -311,22 +349,25 @@ header .menu ion-icon {
 
 @keyframes heartAnimation {
   0% {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
   }
 
   50% {
-      transform: translate(-50%, -50%) scale(1.5);
-      opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.7;
   }
 
   100% {
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
   }
 }
 
-p, h1, h2, h3, span {
-  user-select: none; 
+p,
+h1,
+h2,
+h3,
+span {
+  user-select: none;
 }
-

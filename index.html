@@ -39,7 +39,7 @@
     <!-- video starts -->
     <div class="video" data-id="video1">
       <video class="video__player" preload="auto" loop autoplay muted playsinline controlsList="nodownload" src="img/modelo2.MP4" style="display: none;"></video>
-      <img src="img/modelo3.PNG" alt="" class="video__player" style="display: block;">
+      <img src="img/modelo5.jpg" alt="" class="video__player" style="display: block;">
       <div class="controls">
         <div class="profile-icon">
           <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Profile Image">
@@ -61,7 +61,7 @@
     <!-- video starts -->
     <div class="video" data-id="video2">
       <video class="video__player" preload="auto" loop autoplay muted playsinline controlsList="nodownload" src="img/modelo3.MP4" style="display: block;"></video>
-      <img src="img/modelo5.jpg" alt="" class="video__player" style="display: none;">
+      <img src="img/modelo3.PNG" alt="" class="video__player" style="display: none;">
       <div class="controls">
         <div class="profile-icon">
           <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Profile Image">
@@ -106,12 +106,12 @@
 
   <script src="js/script.js"></script>
   <script>
-    window.addEventListener('load', () => {
-  document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
-  document.body.style.minHeight = `calc(var(--vh, 1vh) * 100)`;
-  document.querySelector('header').style.top = '0'; // Garante a posição correta do header
-});
-
+function updateViewportHeight() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+window.addEventListener('resize', updateViewportHeight);
+window.addEventListener('load', updateViewportHeight);
   </script>
 </body>
 
